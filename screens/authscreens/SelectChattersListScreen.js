@@ -236,7 +236,7 @@ const SelectChattersListScreen = ({
       // Inserted text is not blank
       // Filter the usersSearchResult
       // Update usersFiltered
-      const newData = friends.filter((item) => {
+      const newData = friends?.filter((item) => {
         const itemData = item.displayName
           ? item.displayName.toLowerCase()
           : "".toLowerCase();
