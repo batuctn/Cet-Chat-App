@@ -53,39 +53,39 @@ npm run android or ios
 <br/>
 
 ### Prerequisites
-    @react-native-masked-view/masked-view <br />
-    @react-navigation/bottom-tabs <br />
-    @react-navigation/material-bottom-tabs <br />
-    @react-navigation/native <br />
-    @react-navigation/native-stack <br />
-    @react-navigation/stack <br />
-    expo <br />
-    expo-auth-session <br />
-    expo-device <br />
-    expo-image-picker <br />
-    expo-location <br />
-    expo-media-library <br />
-    expo-modules-autolinking <br />
-    expo-notifications <br />
-    expo-random <br />
-    expo-status-bar <br /> 
-    expo-updates <br />
-    expo-web-browser <br />
-    firebase <br />
-    lottie-react-native <br />
-    react-native-dotenv <br />
-    react-native-elements <br />
-    react-native-fade-in-out <br />
-    react-native-gesture-handler <br />
-    react-native-maps <br />
-    react-native-paper <br /> 
-    react-native-popup-menu <br />
-    react-native-reanimated <br />
-    react-native-safe-area-context <br />
-    react-native-screens <br />
-    react-native-toast-notifications <br />
-    react-native-typing-animation <br />
-    react-native-uuid <br />
+    @react-native-masked-view/masked-view 
+    @react-navigation/bottom-tabs 
+    @react-navigation/material-bottom-tabs <
+    @react-navigation/native 
+    @react-navigation/native-stack 
+    @react-navigation/stack 
+    expo 
+    expo-auth-session 
+    expo-device 
+    expo-image-picker
+    expo-location
+    expo-media-library 
+    expo-modules-autolinking 
+    expo-notifications 
+    expo-random 
+    expo-status-bar 
+    expo-updates 
+    expo-web-browser 
+    firebase
+    lottie-react-native 
+    react-native-dotenv
+    react-native-elements 
+    react-native-fade-in-out 
+    react-native-gesture-handler 
+    react-native-maps 
+    react-native-paper 
+    react-native-popup-menu 
+    react-native-reanimated 
+    react-native-safe-area-context 
+    react-native-screens 
+    react-native-toast-notifications 
+    react-native-typing-animation <
+    react-native-uuid 
  
 
 
@@ -102,7 +102,7 @@ npm run android or ios
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page]().
+Feel free to check the [issues page](https://github.com/batuctn/Cet-Chat-App/issues).
 
 ## Show your support
 
