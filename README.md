@@ -46,6 +46,7 @@
 
 
 
+
 ## Getting Started
 Clone repository  https://github.com/batuctnn/Cet-Chat-App.git <br/>
 npm install <br/>
@@ -88,6 +89,12 @@ npm run android or ios
     react-native-uuid 
  
 
+
+## Firebase (ScrenShot)
+
+![Ekran Alıntısı3](https://user-images.githubusercontent.com/96943978/195093667-ec0479b2-1a84-4909-a113-04b4da123b39.PNG)
+![Ekran Alıntısı](https://user-images.githubusercontent.com/96943978/195093675-2bcf2bfe-11bd-48a9-a69c-084f02c65c0a.PNG)
+![Ekran Alıntısı2](https://user-images.githubusercontent.com/96943978/195093677-f1d55aad-7908-472b-8ddf-d621759f2916.PNG)
 
 ## Authors
 
