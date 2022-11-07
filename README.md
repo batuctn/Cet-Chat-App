@@ -37,7 +37,7 @@
 - React Native Expo
 - CSS
 - JS
-
+-Node 14.18.0
 ## Live Demo (available)
 
 
@@ -48,7 +48,7 @@
 
 
 ## Getting Started
-Clone repository  https://github.com/batuctnn/Cet-Chat-App.git <br/>
+Clone repository  https://github.com/batuctn/Cet-Chat-App.git <br/>
 npm install <br/>
 npm run android or ios 
 <br/>
