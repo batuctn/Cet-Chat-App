@@ -96,6 +96,7 @@ const LogInScreen = ({ navigation }) => {
           />
           <TextInput
             placeholder="Email"
+            autoCapitalize="none"
             value={email}
             onChangeText={(text) => setEmail(text)}
             style={{ flex: 1, fontSize: 18 }}

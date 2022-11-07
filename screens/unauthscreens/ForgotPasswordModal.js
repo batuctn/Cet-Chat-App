@@ -90,13 +90,11 @@ const ForgotPasswordModal = ({ modalVisible, setModalVisible }) => {
       <View
         style={{
           flex: 1,
-          // justifyContent: "center",
           alignItems: "center",
         }}
       >
         <View
           style={{
-            // backgroundColor: "red",
             width: "80%",
             height: "80%",
             justifyContent: "space-around",
