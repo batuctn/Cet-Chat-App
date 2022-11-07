@@ -1,5 +1,12 @@
 import { useEffect, useState, useLayoutEffect } from "react";
-import { StyleSheet, Text, View, Pressable, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  TextInput,
+  Alert,
+} from "react-native";
 import {
   collection,
   query,
@@ -7,6 +14,7 @@ import {
   doc,
   onSnapshot,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { signOut, updateProfile } from "firebase/auth";
@@ -25,6 +33,8 @@ import * as ImagePicker from "expo-image-picker";
 import { useToast } from "react-native-toast-notifications";
 import UpdateEmailModal from "./UpdateEmailModal";
 import ChangePasswordModal from "./ChangePasswordModal/ChangePasswordModal";
+import { useNavigation } from "@react-navigation/native";
+
 import {
   Menu,
   MenuOptions,
@@ -32,8 +42,9 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import CustomButton from "../../components/CustomButton";
+import axios from "axios";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
   const user = auth.currentUser;
   const toast = useToast();
 
@@ -47,13 +58,15 @@ const ProfileScreen = ({ navigation }) => {
   const [passwordModalVisible, setPasswordModalVisible] = useState(false);
   const [savingChangesSpinner, setSavingChangesSpinner] = useState(false);
   const [savingChangesDisabled, setSavingChangesDisabled] = useState(false);
+  const [deletingAccountDisabled, setDeletingAccountDisabled] = useState(false);
+  const [deletingAccountSpinner, setDeletingAccountSpinner] = useState(false);
   const [canEditEmail, setCanEditEmail] = useState(false);
   const [canEditDisplayName, setCanEditDisplayName] = useState(false);
 
   const usersRef = collection(db, "users");
   const qEmail = query(usersRef, where("email", "==", email));
   const qDisplayName = query(usersRef, where("displayName", "==", displayName));
-
+  const navigation = useNavigation();
   useEffect(() => {
     const unsubDisplayNames = onSnapshot(qDisplayName, (querySnapshot) => {
       let userDisplayNames = [];
@@ -262,6 +275,45 @@ const ProfileScreen = ({ navigation }) => {
     }
   };
 
+  const createTwoButtonAlert = () =>
+    Alert.alert("Attention!", "Do you wanna delete your account?", [
+      {
+        text: "NO",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "YES", onPress: deleteDenemeAxios },
+    ]);
+
+  const deleteDenemeAxios = async () => {
+    try {
+      setModalVisible(false);
+      setDeletingAccountSpinner(true);
+      setDeletingAccountDisabled(true);
+      const response = await axios.post(
+        "https://us-central1-snapchat-2b5f2.cloudfunctions.net/deleteUserByEmail",
+        {
+          userEmail: user.email,
+        }
+      );
+      console.log(response.data);
+      const userRefs = doc(db, "users", user.uid);
+      console.log("Account deleted successfully");
+      await deleteDoc(userRefs).then(() => {
+        setDeletingAccountSpinner(false);
+        setDeletingAccountDisabled(false);
+      });
+
+      await signOut(auth).then(() => {
+        toast.show("Account deleted", {
+          type: "success",
+        });
+      });
+    } catch (error) {
+      console.error(error.code, "-- error deleting account --", error.message);
+    }
+  };
+
   return (
     <View
       style={[styles.container, { backgroundColor: theme.backgroundColor }]}
@@ -454,6 +506,12 @@ const ProfileScreen = ({ navigation }) => {
           onPress={handleUpdateProfile}
           loading={savingChangesSpinner}
           disabled={savingChangesDisabled}
+        />
+        <CustomButton
+          title={"Delete Account"}
+          onPress={createTwoButtonAlert}
+          loading={deletingAccountSpinner}
+          disabled={deletingAccountDisabled}
         />
 
         <UpdateEmailModal

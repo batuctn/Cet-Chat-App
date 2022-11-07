@@ -20,3 +20,23 @@ exports.removeExpiredDocuments = functions.pubsub
     });
     return Promise.all(promises);
   });
+
+exports.deleteUserByEmail = functions.https.onRequest(async (req, res) => {
+  const userEmail = req.body.userEmail;
+  admin
+    .auth()
+    .getUserByEmail(userEmail)
+    .then((userRecord) => {
+      const uid = userRecord.uid;
+      return admin
+        .auth()
+        .deleteUser(uid)
+        .then(() => {
+          res.send("User deleted successfully");
+          return;
+        })
+        .catch((error) => {
+          res.send("Error deleting user:", error);
+        });
+    });
+});
