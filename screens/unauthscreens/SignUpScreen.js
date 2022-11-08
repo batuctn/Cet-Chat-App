@@ -6,6 +6,8 @@ import {
   KeyboardAvoidingView,
   Pressable,
   Platform,
+  TouchableOpacity,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
@@ -28,8 +30,9 @@ import {
   FontAwesome,
   Feather,
 } from "@expo/vector-icons";
-import { Avatar, Button } from "react-native-elements";
+import { Avatar } from "react-native-elements";
 import { useToast } from "react-native-toast-notifications";
+import { Checkbox } from "react-native-paper";
 import {
   Menu,
   MenuOptions,
@@ -47,6 +50,8 @@ const SignUpScreen = ({ navigation: { goBack } }) => {
   const [pickedPhoto, setPickedPhoto] = useState("");
   const [signingUpSpinner, setSigningUpSpinner] = useState(false);
   const [signUpDisabled, setSignUpDisabled] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [emailValidError, setEmailValidError] = useState("");
 
   const toast = useToast();
 
@@ -232,6 +237,17 @@ const SignUpScreen = ({ navigation: { goBack } }) => {
         });
     }
   };
+  const handleValidEmail = (val) => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+
+    if (val.length === 0) {
+      setEmailValidError("Email address must be enter");
+    } else if (reg.test(val) === false) {
+      setEmailValidError("Enter valid email address");
+    } else if (reg.test(val) === true) {
+      setEmailValidError("");
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -327,10 +343,20 @@ const SignUpScreen = ({ navigation: { goBack } }) => {
             <TextInput
               placeholder="Email"
               value={email}
-              onChangeText={(text) => setEmail(text)}
+              autoCapitalize="none"
+              onChangeText={(text) => {
+                setEmail(text);
+                handleValidEmail(text);
+              }}
               style={{ width: "100%", fontSize: 18 }}
             />
           </View>
+          {emailValidError ? (
+            <Text style={{ color: "red", fontSize: 14 }}>
+              {emailValidError}
+            </Text>
+          ) : null}
+
           <View style={styles.credentialInput}>
             <AntDesign
               name="user"
@@ -390,17 +416,38 @@ const SignUpScreen = ({ navigation: { goBack } }) => {
               secureTextEntry
             />
           </View>
+
           {password !== confirmPassword && (
             <Text style={{ color: "#e84118", fontSize: 14 }}>
               Passwords do not match
             </Text>
           )}
-
+          <View style={styles.checkbox}>
+            <Checkbox
+              status={checked ? "checked" : "unchecked"}
+              onPress={() => {
+                setChecked(!checked);
+              }}
+            />
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(
+                  "https://www.privacypolicies.com/live/ed4497fd-bb24-4de3-b713-62ac1f59af61"
+                )
+              }
+            >
+              <Text>
+                I agree to our Terms and Conditions and Privacy Policy
+              </Text>
+            </TouchableOpacity>
+          </View>
           <CustomButton
+            disabled={
+              signUpDisabled || !checked || password !== confirmPassword
+            }
             title={"Sign Up"}
             onPress={handleSignUp}
             loading={signingUpSpinner}
-            disabled={signUpDisabled}
           />
         </View>
       </KeyboardAvoidingView>
@@ -488,5 +535,9 @@ const styles = StyleSheet.create({
     shadowColor: "#333",
     shadowOpacity: 0.4,
     shadowRadius: 2,
+  },
+  checkbox: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
