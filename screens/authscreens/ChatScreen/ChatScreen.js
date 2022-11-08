@@ -44,6 +44,9 @@ import * as Location from "expo-location";
 import useTheme from "../../../hooks/useTheme";
 import LocationComponent from "../../../components/LocationComponent";
 import styles from "../../authscreens/ChatScreen/ChatScreenStyle";
+import { TouchableHighlight } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import DiyalogComponent from "../../../components/DiyalogComponent";
 
 const ChatScreen = ({ route, navigation }) => {
   const [messages, setMessages] = useState(route.params.messages);
@@ -51,6 +54,9 @@ const ChatScreen = ({ route, navigation }) => {
   const [unreadMsgs, setUnreadMsgs] = useState([]);
   const [memberIsTyping, setMemberIsTyping] = useState(false);
   const { totalUnreadMsgs, setTotalUnreadMsgs } = useContext(UnreadMsgContext);
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
   const scrollViewRef = useRef();
 
   const toast = useToast();
@@ -323,7 +329,12 @@ const ChatScreen = ({ route, navigation }) => {
           {messages?.length > 0 ? (
             messages?.map((message, index) => (
               <View key={message.messageId}>
-                <Message message={message} index={index} messages={messages} />
+                <Message
+                  message={message}
+                  index={index}
+                  messages={messages}
+                  onPress={showDialog}
+                />
               </View>
             ))
           ) : (
@@ -367,7 +378,11 @@ const ChatScreen = ({ route, navigation }) => {
             )}
           </FadeInOut>
         </ScrollView>
-
+        <DiyalogComponent
+          visible={visible}
+          hideDialog={hideDialog}
+          person={route.params.friendDisplayName}
+        />
         <View style={styles.footer}>
           <TextInput
             placeholder="CetChat"

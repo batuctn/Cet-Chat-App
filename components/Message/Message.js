@@ -6,8 +6,11 @@ import { getDoc, doc } from "firebase/firestore";
 import { useRoute } from "@react-navigation/native";
 import styles from "../../components/Message/MessageStyle";
 
-const Message = ({ message, index, messages }) => {
+import { MaterialIcons } from "@expo/vector-icons";
+
+const Message = ({ message, index, messages, onPress }) => {
   const [senderInfo, setSenderInfo] = useState("");
+
   const user = auth.currentUser;
   const currentRoute = useRoute();
 
@@ -52,56 +55,69 @@ const Message = ({ message, index, messages }) => {
   });
 
   return (
-    <>
+    <View>
       {newMsgDate !== prevMsgDate && (
         <Text style={styles.newMsgDate}>{newMsgDate}</Text>
       )}
-      <View
-        style={
-          user.uid === message.senderUserId ? styles.flexend : styles.flexstart
-        }
-      >
-        {user.uid === message.senderUserId ? (
-          <View style={{ flexDirection: "row" }}>
-            <View style={styles.messagesSent}>
-              <Text style={{ color: "#fff", fontSize: 16 }}>
-                {message.message}
-              </Text>
-              <Text style={styles.formattedTime}>{formattedTime}</Text>
-            </View>
-          </View>
-        ) : (
-          <View style={{ flexDirection: "row" }}>
-            {currentRoute.name === "GroupChatScreen" && (
-              <View style={styles.groupChatHeader}>
-                <Avatar
-                  size="small"
-                  rounded
-                  source={{ uri: senderInfo.photoURL }}
-                />
+      <View>
+        <View
+          style={
+            user.uid === message.senderUserId
+              ? styles.flexend
+              : styles.flexstart
+          }
+        >
+          {user.uid === message.senderUserId ? (
+            <View style={{ flexDirection: "row" }}>
+              <View style={styles.messagesSent}>
+                <Text style={{ color: "#fff", fontSize: 16 }}>
+                  {message.message}
+                </Text>
+                <Text style={styles.formattedTime}>{formattedTime}</Text>
               </View>
-            )}
-            <View style={{ flexDirection: "column" }}>
+            </View>
+          ) : (
+            <View style={{ flexDirection: "row" }}>
               {currentRoute.name === "GroupChatScreen" && (
-                <Text
-                  style={{ paddingLeft: 10, color: "#95a5a6" }}
-                  numberOfLines={1}
-                  ellipsizeMode="tail"
-                >
-                  {senderInfo.displayName}
-                </Text>
+                <View style={styles.groupChatHeader}>
+                  <Avatar
+                    size="small"
+                    rounded
+                    source={{ uri: senderInfo.photoURL }}
+                  />
+                </View>
               )}
-              <View style={styles.messagesReceived}>
-                <Text style={{ fontSize: 16 }}>{message.message}</Text>
-                <Text style={{ fontSize: 12, paddingTop: 5 }}>
-                  {formattedTime}
-                </Text>
+              <View style={{ flexDirection: "column" }}>
+                {currentRoute.name === "GroupChatScreen" && (
+                  <Text
+                    style={{ paddingLeft: 10, color: "#95a5a6" }}
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                  >
+                    {senderInfo.displayName}
+                  </Text>
+                )}
+                <View style={styles.messagesReceived}>
+                  <Text style={{ fontSize: 16 }}>{message.message}</Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={{ fontSize: 12, paddingTop: 5 }}>
+                      {formattedTime}
+                    </Text>
+                    <MaterialIcons
+                      style={{ marginLeft: 10 }}
+                      name="report"
+                      size={24}
+                      color="red"
+                      onPress={onPress}
+                    />
+                  </View>
+                </View>
               </View>
             </View>
-          </View>
-        )}
+          )}
+        </View>
       </View>
-    </>
+    </View>
   );
 };
 

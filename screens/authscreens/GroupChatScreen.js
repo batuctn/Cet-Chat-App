@@ -50,6 +50,7 @@ import { useRoute } from "@react-navigation/native";
 import { Badge } from "react-native-elements";
 import { TypingAnimation } from "react-native-typing-animation";
 import FadeInOut from "react-native-fade-in-out";
+import DiyalogComponent from "../../components/DiyalogComponent";
 
 const GroupChatScreen = ({ route, navigation }) => {
   const [groupChatName, setGroupChatName] = useState(route.params.groupName);
@@ -62,6 +63,9 @@ const GroupChatScreen = ({ route, navigation }) => {
   const [memberIsTyping, setMemberIsTyping] = useState(false);
   const [userTypingInfo, setUserTypingInfo] = useState("");
   const { totalUnreadMsgs, setTotalUnreadMsgs } = useContext(UnreadMsgContext);
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
   const scrollViewRef = useRef();
 
   const toast = useToast();
@@ -397,7 +401,12 @@ const GroupChatScreen = ({ route, navigation }) => {
           {messages?.length !== 0 ? (
             messages?.map((message, index) => (
               <View key={message.messageId}>
-                <Message message={message} index={index} messages={messages} />
+                <Message
+                  message={message}
+                  index={index}
+                  messages={messages}
+                  onPress={showDialog}
+                />
               </View>
             ))
           ) : (
@@ -440,6 +449,7 @@ const GroupChatScreen = ({ route, navigation }) => {
             )}
           </FadeInOut>
         </ScrollView>
+        <DiyalogComponent visible={visible} hideDialog={hideDialog} />
         {/* <Button
           title="read chat info"
           onPress={() =>
