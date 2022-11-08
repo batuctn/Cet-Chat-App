@@ -6,6 +6,7 @@ import {
   Pressable,
   TextInput,
   Alert,
+  ScrollView,
 } from "react-native";
 import {
   collection,
@@ -318,209 +319,213 @@ const ProfileScreen = () => {
     <View
       style={[styles.container, { backgroundColor: theme.backgroundColor }]}
     >
-      <View style={styles.settingsBodyView}>
-        <View
-          style={{
-            alignItems: "center",
-            marginVertical: 20,
-          }}
-        >
-          {!pickedPhoto ? (
-            <>
-              <Avatar source={{ uri: user.photoURL }} size={150} rounded />
-              <Menu>
-                <MenuTrigger>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.settingsBodyView}>
+          <View
+            style={{
+              alignItems: "center",
+              marginVertical: 20,
+            }}
+          >
+            {!pickedPhoto ? (
+              <>
+                <Avatar source={{ uri: user.photoURL }} size={150} rounded />
+                <Menu>
+                  <MenuTrigger>
+                    <View style={styles.removeAddPhotoBtn}>
+                      <Ionicons
+                        name="add-circle"
+                        size={34}
+                        color="green"
+                        style={{ bottom: 2 }}
+                      />
+                    </View>
+                  </MenuTrigger>
+                  <MenuOptions>
+                    <MenuOption
+                      onSelect={selectProfilePic}
+                      style={{ marginVertical: 5 }}
+                    >
+                      <View style={{ flexDirection: "row", paddingLeft: 5 }}>
+                        <FontAwesome name="picture-o" size={20} color="#000" />
+                        <View style={{ alignSelf: "center", marginLeft: 5 }}>
+                          <Text style={{ fontSize: 18 }}>Select Photo</Text>
+                        </View>
+                      </View>
+                    </MenuOption>
+                    <MenuOption
+                      style={{ marginVertical: 5 }}
+                      onSelect={openCamera}
+                    >
+                      <View style={{ flexDirection: "row", paddingLeft: 5 }}>
+                        <Feather name="camera" size={20} color="#000" />
+                        <View style={{ alignSelf: "center", marginLeft: 5 }}>
+                          <Text style={{ fontSize: 18 }}>Camera</Text>
+                        </View>
+                      </View>
+                    </MenuOption>
+                  </MenuOptions>
+                </Menu>
+              </>
+            ) : (
+              <>
+                <Avatar source={{ uri: pickedPhoto }} size={150} rounded />
+                <Pressable onPress={() => setPickedPhoto("")}>
                   <View style={styles.removeAddPhotoBtn}>
                     <Ionicons
-                      name="add-circle"
+                      name="remove-circle"
                       size={34}
-                      color="green"
-                      style={{ bottom: 2 }}
+                      color="tomato"
+                      style={{ position: "relative", bottom: 2 }}
                     />
                   </View>
-                </MenuTrigger>
-                <MenuOptions>
-                  <MenuOption
-                    onSelect={selectProfilePic}
-                    style={{ marginVertical: 5 }}
-                  >
-                    <View style={{ flexDirection: "row", paddingLeft: 5 }}>
-                      <FontAwesome name="picture-o" size={20} color="#000" />
-                      <View style={{ alignSelf: "center", marginLeft: 5 }}>
-                        <Text style={{ fontSize: 18 }}>Select Photo</Text>
-                      </View>
-                    </View>
-                  </MenuOption>
-                  <MenuOption
-                    style={{ marginVertical: 5 }}
-                    onSelect={openCamera}
-                  >
-                    <View style={{ flexDirection: "row", paddingLeft: 5 }}>
-                      <Feather name="camera" size={20} color="#000" />
-                      <View style={{ alignSelf: "center", marginLeft: 5 }}>
-                        <Text style={{ fontSize: 18 }}>Camera</Text>
-                      </View>
-                    </View>
-                  </MenuOption>
-                </MenuOptions>
-              </Menu>
-            </>
-          ) : (
-            <>
-              <Avatar source={{ uri: pickedPhoto }} size={150} rounded />
-              <Pressable onPress={() => setPickedPhoto("")}>
-                <View style={styles.removeAddPhotoBtn}>
-                  <Ionicons
-                    name="remove-circle"
-                    size={34}
-                    color="tomato"
-                    style={{ position: "relative", bottom: 2 }}
-                  />
-                </View>
-              </Pressable>
-            </>
-          )}
-        </View>
-        <View style={{ alignItems: "center" }}>
-          <MaterialCommunityIcons
-            onPress={toggleTheme}
-            name="theme-light-dark"
-            size={30}
-          />
-        </View>
+                </Pressable>
+              </>
+            )}
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <MaterialCommunityIcons
+              onPress={toggleTheme}
+              name="theme-light-dark"
+              size={30}
+            />
+          </View>
 
-        <View
-          style={{
-            marginVertical: 20,
-          }}
-        >
-          <View style={styles.credentialInputView}>
-            <Text style={styles.credentialPropertyText}>Email:</Text>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                justifyContent: "flex-end",
-              }}
-            >
-              <TextInput
-                value={email}
-                placeholder={user.email}
-                onChangeText={(text) => setEmail(text.toLowerCase())}
-                style={
-                  canEditEmail
-                    ? styles.credentialInput
-                    : [styles.credentialInput, { backgroundColor: "#ececec" }]
-                }
-                editable={canEditEmail}
-              />
-              {user.providerData[0].providerId === "password" ? (
+          <View
+            style={{
+              marginVertical: 20,
+            }}
+          >
+            <View style={styles.credentialInputView}>
+              <Text style={styles.credentialPropertyText}>Email:</Text>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <TextInput
+                  value={email}
+                  placeholder={user.email}
+                  onChangeText={(text) => setEmail(text.toLowerCase())}
+                  style={
+                    canEditEmail
+                      ? styles.credentialInput
+                      : [styles.credentialInput, { backgroundColor: "#ececec" }]
+                  }
+                  editable={canEditEmail}
+                />
+                {user.providerData[0].providerId === "password" ? (
+                  <Pressable
+                    onPress={() => setCanEditEmail(!canEditEmail)}
+                    style={{ alignSelf: "center", paddingLeft: 10 }}
+                  >
+                    <Feather name="edit-2" size={20} color="black" />
+                  </Pressable>
+                ) : (
+                  <View style={{ marginLeft: 30 }} />
+                )}
+                {/* </View> */}
+              </View>
+            </View>
+            <View style={styles.credentialInputView}>
+              <Text style={styles.credentialPropertyText}>Display Name:</Text>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <TextInput
+                  value={displayName}
+                  placeholder={user.displayName}
+                  onChangeText={(text) => setDisplayName(text)}
+                  style={
+                    canEditDisplayName
+                      ? styles.credentialInput
+                      : [styles.credentialInput, { backgroundColor: "#ececec" }]
+                  }
+                  editable={canEditDisplayName}
+                />
                 <Pressable
-                  onPress={() => setCanEditEmail(!canEditEmail)}
+                  onPress={() => setCanEditDisplayName(!canEditDisplayName)}
                   style={{ alignSelf: "center", paddingLeft: 10 }}
                 >
                   <Feather name="edit-2" size={20} color="black" />
                 </Pressable>
+              </View>
+            </View>
+            {!displayNameAvailable && (
+              <View style={{ paddingRight: 10 }}>
+                <Text
+                  style={{ color: "#e84118", fontSize: 14, textAlign: "right" }}
+                >
+                  Display Name Is Not Available
+                </Text>
+              </View>
+            )}
+            <View style={styles.credentialInputView}>
+              <Text style={styles.credentialPropertyText}>
+                Email Verified:{" "}
+              </Text>
+              {emailVerified ? (
+                <Text style={styles.credentialPropertyText}>Yes</Text>
               ) : (
-                <View style={{ marginLeft: 30 }} />
+                <Text style={styles.credentialPropertyText}>No</Text>
               )}
-              {/* </View> */}
             </View>
           </View>
-          <View style={styles.credentialInputView}>
-            <Text style={styles.credentialPropertyText}>Display Name:</Text>
+          {user.providerData[0].providerId === "password" && (
             <View
               style={{
-                flex: 1,
                 flexDirection: "row",
-                justifyContent: "flex-end",
+                alignSelf: "flex-end",
               }}
             >
-              <TextInput
-                value={displayName}
-                placeholder={user.displayName}
-                onChangeText={(text) => setDisplayName(text)}
-                style={
-                  canEditDisplayName
-                    ? styles.credentialInput
-                    : [styles.credentialInput, { backgroundColor: "#ececec" }]
-                }
-                editable={canEditDisplayName}
-              />
-              <Pressable
-                onPress={() => setCanEditDisplayName(!canEditDisplayName)}
-                style={{ alignSelf: "center", paddingLeft: 10 }}
-              >
-                <Feather name="edit-2" size={20} color="black" />
-              </Pressable>
-            </View>
-          </View>
-          {!displayNameAvailable && (
-            <View style={{ paddingRight: 10 }}>
-              <Text
-                style={{ color: "#e84118", fontSize: 14, textAlign: "right" }}
-              >
-                Display Name Is Not Available
-              </Text>
+              <View style={{ justifyContent: "center" }}>
+                <Text
+                  onPress={() => setPasswordModalVisible(true)}
+                  style={{
+                    paddingLeft: 10,
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Change Password
+                </Text>
+                <ChangePasswordModal
+                  passwordModalVisible={passwordModalVisible}
+                  setPasswordModalVisible={setPasswordModalVisible}
+                />
+              </View>
+              <Entypo name="chevron-small-right" size={24} color="black" />
             </View>
           )}
-          <View style={styles.credentialInputView}>
-            <Text style={styles.credentialPropertyText}>Email Verified: </Text>
-            {emailVerified ? (
-              <Text style={styles.credentialPropertyText}>Yes</Text>
-            ) : (
-              <Text style={styles.credentialPropertyText}>No</Text>
-            )}
-          </View>
         </View>
-        {user.providerData[0].providerId === "password" && (
-          <View
-            style={{
-              flexDirection: "row",
-              alignSelf: "flex-end",
-            }}
-          >
-            <View style={{ justifyContent: "center" }}>
-              <Text
-                onPress={() => setPasswordModalVisible(true)}
-                style={{
-                  paddingLeft: 10,
-                  fontSize: 18,
-                  fontWeight: "bold",
-                }}
-              >
-                Change Password
-              </Text>
-              <ChangePasswordModal
-                passwordModalVisible={passwordModalVisible}
-                setPasswordModalVisible={setPasswordModalVisible}
-              />
-            </View>
-            <Entypo name="chevron-small-right" size={24} color="black" />
-          </View>
-        )}
-      </View>
-      <View style={{ alignItems: "center" }}>
-        <CustomButton
-          title={"Save Changes"}
-          onPress={handleUpdateProfile}
-          loading={savingChangesSpinner}
-          disabled={savingChangesDisabled}
-        />
-        <CustomButton
-          title={"Delete Account"}
-          onPress={createTwoButtonAlert}
-          loading={deletingAccountSpinner}
-          disabled={deletingAccountDisabled}
-        />
+        <View style={{ alignItems: "center" }}>
+          <CustomButton
+            title={"Save Changes"}
+            onPress={handleUpdateProfile}
+            loading={savingChangesSpinner}
+            disabled={savingChangesDisabled}
+          />
+          <CustomButton
+            title={"Delete Account"}
+            onPress={createTwoButtonAlert}
+            loading={deletingAccountSpinner}
+            disabled={deletingAccountDisabled}
+          />
 
-        <UpdateEmailModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          email={email}
-          user={user}
-        />
-      </View>
+          <UpdateEmailModal
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            email={email}
+            user={user}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
