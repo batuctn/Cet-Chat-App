@@ -2,7 +2,7 @@
   "expo": {
     "name": "Cet chat",
     "slug": "Cetchat",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,7 +19,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.batuctn.Cetchat",
       "infoPlist": {
-        "NSCameraUsageDescription": "This app needs access to your camera to take pictures.",
+        "NSCameraUsageDescription": "Granting access will allow you to take photos and add them to attachment fields,add them to profile picture and share story with friends ",
         "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to upload pictures.",
         "NSLocationWhenInUseUsageDescription": "This app needs access to your location to send location in users.",
         "NSLocationAlwaysUsageDescription": "This app needs access to your location to send location in users.",
