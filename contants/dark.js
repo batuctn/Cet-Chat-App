@@ -4,4 +4,5 @@ export default {
   color: "gray",
   buttoncolor: "gray",
   chevronback: "black",
+  textColor: "white",
 };

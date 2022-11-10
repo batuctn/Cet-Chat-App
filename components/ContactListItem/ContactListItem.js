@@ -19,6 +19,7 @@ import {
 import { useToast } from "react-native-toast-notifications";
 import { useIsFocused } from "@react-navigation/native";
 import styles from "../../components/ContactListItem/ContactListItemStyle";
+import useTheme from "../../hooks/useTheme";
 
 const ContactListItem = ({ friend, navigation }) => {
   const [groups, setGroups] = useState([]);
@@ -27,6 +28,7 @@ const ContactListItem = ({ friend, navigation }) => {
   const [isActive, setIsActive] = useState(false);
   const [story, setStory] = useState(null);
   const isFocused = useIsFocused();
+  const { theme } = useTheme();
 
   const user = auth.currentUser;
   const toast = useToast();
@@ -190,7 +192,7 @@ const ContactListItem = ({ friend, navigation }) => {
 
   return (
     <Swipeable renderRightActions={rightSwipeActions}>
-      <ListItem>
+      <ListItem containerStyle={{ backgroundColor: theme.backgroundColor }}>
         <Avatar
           onPress={() => {
             isActive === true
@@ -210,7 +212,9 @@ const ContactListItem = ({ friend, navigation }) => {
 
         <ListItem.Content>
           <View style={styles.ItemContent}>
-            <ListItem.Title style={styles.itemTitle}>
+            <ListItem.Title
+              style={[styles.itemTitle, { color: theme.textColor }]}
+            >
               {friend.displayName}
             </ListItem.Title>
             <ListItem.Title>

@@ -4,4 +4,5 @@ export default {
   backgroundColor: "white",
   color: "black",
   chevronback: "#22a6b3",
+  textColor: "black",
 };

@@ -11,13 +11,14 @@ import {
   where,
   orderBy,
 } from "firebase/firestore";
-import { Avatar, ListItem, Badge } from "react-native-elements";
+import { Avatar, ListItem, Badge, ThemeConsumer } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { UnreadMsgContext } from "../../context/UnreadMsgContext";
 import { useToast } from "react-native-toast-notifications";
 import { TypingAnimation } from "react-native-typing-animation";
 import styles from "../../components/ChatListItem/ChatListItemStyle";
+import useTheme from "../../hooks/useTheme";
 
 const ChatListItem = ({ chat, chats, navigation, setModalVisible }) => {
   const [messages, setMessages] = useState([]);
@@ -26,6 +27,7 @@ const ChatListItem = ({ chat, chats, navigation, setModalVisible }) => {
   const [membersInfo, setMembersInfo] = useState("");
   const { totalUnreadMsgs, setTotalUnreadMsgs } = useContext(UnreadMsgContext);
 
+  const { theme } = useTheme();
   const user = auth.currentUser;
   const toast = useToast();
   const groupRef = doc(db, "groups", chat.groupId);
@@ -161,7 +163,11 @@ const ChatListItem = ({ chat, chats, navigation, setModalVisible }) => {
 
   return (
     <Swipeable renderRightActions={rightSwipeActions}>
-      <ListItem onPress={goToChatScreen} style={{ height: 70 }}>
+      <ListItem
+        onPress={goToChatScreen}
+        style={{ height: 70 }}
+        containerStyle={{ backgroundColor: theme.backgroundColor }}
+      >
         {membersInfo.length === 1 ? (
           <Avatar
             size="medium"
