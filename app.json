@@ -21,10 +21,10 @@
       "infoPlist": {
         "NSCameraUsageDescription": "Granting access will allow you to take photos and add them to attachment fields,add them to profile picture and share story with friends ",
         "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to upload pictures.",
-        "NSLocationWhenInUseUsageDescription": "This app needs access to your location to send location in users.",
-        "NSLocationAlwaysUsageDescription": "This app needs access to your location to send location in users.",
+        "NSLocationWhenInUseUsageDescription": "If not allowed, you will be unable to share your location in chats or use location-based services. CetChat also uses this info to deliver relevant search results and to keep your account safe when resgitering or logging into CetChat.",
+        "NSLocationAlwaysUsageDescription": "If not allowed, you will be unable to share your location in chats or use location-based services. CetChat also uses this info to deliver relevant search results and to keep your account safe when resgitering or logging into CetChat.",
         "NSMicrophoneUsageDescription": "This app needs access to your microphone to record audio.",
-        "NSUserTrackingUsageDescription": "This app needs access to your location to send location in users.",
+        "NSUserTrackingUsageDescription": "If not allowed, you will be unable to share your location in chats or use location-based services. CetChat also uses this info to deliver relevant search results and to keep your account safe when resgitering or logging into CetChat.",
         "NSPhotoLibraryAddUsageDescription": "This app needs access to your photo library to upload pictures.",
         "NSCalendarsUsageDescription": "This app needs access to your calendar to send calendar events.",
         "NSRemindersUsageDescription": "This app needs access to your reminders to send reminders.",
@@ -51,8 +51,8 @@
         "NSVoiceTriggerUsageDescription": "This app needs access to your voice trigger to send voice trigger data.",
         "NSAirPlayUsageDescription": "This app needs access to your airplay to send airplay data.",
         "NSAirDropUsageDescription": "This app needs access to your air drop to send air drop data.",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app needs access to your location to send location data.",
-        "NSLocationUsageDescription": "This app needs access to your location to send location data."
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "If not allowed, you will be unable to share your location in chats or use location-based services. CetChat also uses this info to deliver relevant search results and to keep your account safe when resgitering or logging into CetChat.",
+        "NSLocationUsageDescription": "If not allowed, you will be unable to share your location in chats or use location-based services.CetChat also uses this info to deliver relevant search results and to keep your account safe when resgitering or logging into CetChat."
       }
     },
     "android": {
