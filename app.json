@@ -2,7 +2,7 @@
   "expo": {
     "name": "Cet chat",
     "slug": "Cetchat",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,6 +16,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "buildNumber": "4",
       "supportsTablet": true,
       "bundleIdentifier": "com.batuctn.Cetchat",
       "infoPlist": {
@@ -24,7 +25,6 @@
         "NSLocationWhenInUseUsageDescription": "If not allowed, you will be unable to share your location in chats or use location-based services. CetChat also uses this info to deliver relevant search results and to keep your account safe when resgitering or logging into CetChat.",
         "NSLocationAlwaysUsageDescription": "If not allowed, you will be unable to share your location in chats or use location-based services. CetChat also uses this info to deliver relevant search results and to keep your account safe when resgitering or logging into CetChat.",
         "NSMicrophoneUsageDescription": "This app needs access to your microphone to record audio.",
-        "NSUserTrackingUsageDescription": "If not allowed, you will be unable to share your location in chats or use location-based services. CetChat also uses this info to deliver relevant search results and to keep your account safe when resgitering or logging into CetChat.",
         "NSPhotoLibraryAddUsageDescription": "This app needs access to your photo library to upload pictures.",
         "NSCalendarsUsageDescription": "This app needs access to your calendar to send calendar events.",
         "NSRemindersUsageDescription": "This app needs access to your reminders to send reminders.",
