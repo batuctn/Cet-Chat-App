@@ -423,7 +423,8 @@ const SignUpScreen = ({ navigation: { goBack } }) => {
             </Text>
           )}
           <View style={styles.checkbox}>
-            <Checkbox
+            <Checkbox.Android
+              mode="android"
               status={checked ? "checked" : "unchecked"}
               onPress={() => {
                 setChecked(!checked);
